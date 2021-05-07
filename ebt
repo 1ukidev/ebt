@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+
+# ebt - easy backup tool
+# made by 1ukidev
+# license: GNU GPL v2.0
+
+clear
+
+SECONDS=0
+RED='\033[0;31m'
+NC='\033[0m'
+
+if [ -s ebt-log ]
+then
+    echo "---------------------------" >> ebt-log
+else
+    printf "" >> ebt-log
+fi
+
+date "+date:%d-%m-%y_time:%H-%M-%S" >> ebt-log
+
+if command -v tar > /dev/null; then
+    printf "tar ok\n" >> ebt-log
+else
+    printf "\ntar is not installed :(\n\n"
+    printf "tar fail\n" >> ebt-log
+    exit 1
+fi
+
+if command -v zstd > /dev/null; then
+    printf "zstd ok\n" >> ebt-log
+else
+    printf "\nzstd is not installed :(\n\n"
+    printf "zstd fail\n" >> ebt-log
+    exit 1
+fi
+
+if command -v drive > /dev/null; then
+    printf "drive ok\n" >> ebt-log
+else
+    printf "\ndrive is not installed :(\n\n"
+    printf "drive fail\n" >> ebt-log
+    exit 1
+fi
+
+printf "Welcome to ${RED}ebt${NC}, easy backup tool!\n"
+printf "A simple shell script for backup. Automates compressing your directory or file and make upload to your Google Drive using the drive tool.\n\n"
+printf "More information: https://github.com/1ukidev/ebt\n"
+printf "drive: https://github.com/odeke-em/drive\n\n"
+printf "${RED}WARNING: If you have never used drive tool, configure it before use to avoid errors.${NC}\n"
+printf "Enter path of the file or directory you want to backup:\n"
+printf "Example: /home/user/Music (for directory) or /home/user/Music/Jazz.mp3 (for file).\n"
+IFS= read -rp "❯❯ " path
+printf "Enter the name you want to put in the compressed file (a-zA-Z0-9) (without file format) (tip: $(date "+%d%m%y%H%M%S")).\n"
+IFS= read -rp "❯❯ " name
+
+if [[ "$name" =~ ^[a-zA-Z0-9]*$ ]]
+    then
+        printf "Puted.\n"
+    else
+        printf "This name is invalid, please replace it with another.\n"
+        printf "This name is invalid, please replace it with another.\n" >> ebt-log
+        exit 1
+fi
+
+if [[ -d $path ]]; then
+    printf "Starting directory compression...\n"
+    {
+    tar --zstd -cf $name.tar.zst $path/
+    } &> /dev/null
+    if [ $? -eq 0 ]; then
+        printf "Done.\n"
+    else
+        printf "Fail :(\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n"
+        printf "Fail :(\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n" >> ebt-log
+        exit 1
+    fi
+        printf "Uploading...\n" 
+        {
+        drive push -quiet $name.tar.zst
+        } &> /dev/null 
+    if [ $? -eq 0 ]; then
+    	rm -Rf $name.tar.zst
+    	printf "Deleted compressed directory.\n"
+    	printf "Deleted compressed directory.\n" >> ebt-log
+        printf "All right, closing...\n"
+        printf "All right, closing...\n" >> ebt-log
+        printf "Finished in $SECONDS seconds.\n"
+        printf "Finished in $SECONDS seconds.\n" >> ebt-log
+    else
+        printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n"
+        printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n" >> ebt-log
+    fi
+
+elif [[ -f $path ]]; then
+    printf "Starting file compression...\n"
+    {
+    tar --zstd -cf $name.tar.zst $path/
+    } &> /dev/null
+    if [ $? -eq 0 ]; then
+        printf "Done.\n"
+    else
+        printf "Fail :(\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n"
+        printf "Fail :(\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n" >> ebt-log
+        exit 1
+    fi
+        printf "Uploading...\n" 
+        {
+        drive push -quiet $name.tar.zst
+        } &> /dev/null
+    if [ $? -eq 0 ]; then
+        rm -Rf $name.tar.zst
+    	printf "Deleted compressed file.\n"
+    	printf "Deleted compressed file.\n" >> ebt-log
+        printf "All right, closing...\n"
+        printf "All right, closing...\n" >> ebt-log
+        printf "Finished in $SECONDS seconds.\n"
+        printf "Finished in $SECONDS seconds.\n" >> ebt-log
+    else
+        printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n"
+        printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n" >> ebt-log
+    fi
+
+else
+    printf "$path is not valid.\n"
+    printf "$path is not valid.\n" >> ebt-log
+    exit 1
+fi
