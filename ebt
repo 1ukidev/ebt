@@ -6,9 +6,13 @@
 
 clear
 
+# Required variables.
+
 SECONDS=0
 RED='\033[0;31m'
 NC='\033[0m'
+
+# First content for ebt-log.
 
 if [ -s ebt-log ]
 then
@@ -18,6 +22,8 @@ else
 fi
 
 date "+date:%d-%m-%y_time:%H-%M-%S" >> ebt-log
+
+# Checks whether dependencies are installed.
 
 if command -v tar > /dev/null; then
     printf "tar ok\n" >> ebt-log
@@ -43,6 +49,8 @@ else
     exit 1
 fi
 
+# Welcome.
+
 printf "Welcome to ${RED}ebt${NC}, easy backup tool!\n"
 printf "A simple shell script for backup. It speeds up the backup process by compressing your directory or file and uploading it to Google Drive using the drive tool.\n\n"
 printf "More information: https://github.com/1ukidev/ebt\n"
@@ -62,6 +70,8 @@ if [[ "$name" =~ ^[a-zA-Z0-9]*$ ]]
         printf "This name is invalid, please replace it with another.\n" >> ebt-log
         exit 1
 fi
+
+# Where the magic happens.
 
 if [[ -d $path ]]; then
     printf "Starting directory compression...\n"
