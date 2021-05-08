@@ -73,6 +73,8 @@ fi
 
 # Where the magic happens.
 
+# Directory compression.
+
 if [[ -d $path ]]; then
     printf "Starting directory compression...\n"
     {
@@ -101,6 +103,8 @@ if [[ -d $path ]]; then
         printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n"
         printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n" >> ebt-log
     fi
+
+# File compression.
 
 elif [[ -f $path ]]; then
     printf "Starting file compression...\n"
