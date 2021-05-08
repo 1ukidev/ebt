@@ -8,6 +8,10 @@ A simple shell script for backup. It speeds up the backup process by compressing
 - zstd
 - drive
 
+**How to unzip?** </br>
+Use unzstd:
+```unzstd name.tar.zst```
+
 Acknowledgements: <br>
 drive: https://github.com/odeke-em/drive </br>
 zstd: https://github.com/facebook/zstd
