@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # ebt - easy backup tool
 # made by 1ukidev
@@ -71,14 +71,12 @@ if [[ "$name" =~ ^[a-zA-Z0-9]*$ ]]
         exit 1
 fi
 
-# Where the magic happens.
-
 # Directory compression.
 
 if [[ -d $path ]]; then
     printf "Starting directory compression...\n"
     {
-    tar --zstd -cf $name.tar.zst $path/
+    tar -I 'zstd --ultra -15' -cf $name.tar.zst $path/
     } &> /dev/null
     if [ $? -eq 0 ]; then
         printf "Done.\n"
@@ -109,7 +107,7 @@ if [[ -d $path ]]; then
 elif [[ -f $path ]]; then
     printf "Starting file compression...\n"
     {
-    tar --zstd -cf $name.tar.zst $path/
+    tar -I 'zstd --ultra -15' -cf $name.tar.zst $path/
     } &> /dev/null
     if [ $? -eq 0 ]; then
         printf "Done.\n"
