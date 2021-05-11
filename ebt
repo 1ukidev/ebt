@@ -8,7 +8,6 @@ clear
 
 # Required variables.
 
-SECONDS=0
 RED='\033[0;31m'
 NC='\033[0m'
 
@@ -21,7 +20,7 @@ else
     printf "" >> ebt-log
 fi
 
-date "+date:%d-%m-%y_time:%H-%M-%S" >> ebt-log
+date "+Date: %d-%m-%y Time: %H-%M-%S" >> ebt-log
 
 # Checks whether dependencies are installed.
 
@@ -59,10 +58,10 @@ printf "${RED}WARNING: If you have never used drive tool, configure it before us
 printf "Enter path of the file or directory you want to backup:\n"
 printf "Example: /home/user/Music (for directory) or /home/user/Music/Jazz.mp3 (for file).\n"
 IFS= read -rp "❯❯ " path
-printf "Enter the name you want to put in the compressed file (a-zA-Z0-9) (without file format) (tip: $(date "+%d%m%y%H%M%S")).\n"
+printf "Enter the name you want to put in the compressed file (a-z, A-Z, 0-9, ._-) (without file format) (tip: $(date "+%d-%m-%y")).\n"
 IFS= read -rp "❯❯ " name
 
-if [[ "$name" =~ ^[a-zA-Z0-9]*$ ]]
+if [[ "$name" =~ ^[0-9a-zA-Z._-]+$ ]]
     then
         printf "Puted.\n"
     else
@@ -70,6 +69,9 @@ if [[ "$name" =~ ^[a-zA-Z0-9]*$ ]]
         printf "This name is invalid, please replace it with another.\n" >> ebt-log
         exit 1
 fi
+
+# Runtime.
+SECONDS=0
 
 # Directory compression.
 
