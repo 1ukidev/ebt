@@ -15,7 +15,7 @@ NC='\033[0m'
 
 if [ -s ebt-log ]
 then
-    echo "---------------------------" >> ebt-log
+    echo "-----------------------------" >> ebt-log
 else
     printf "" >> ebt-log
 fi
