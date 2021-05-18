@@ -78,10 +78,11 @@ if [[ "$name" =~ ^[0-9a-zA-Z._-]+$ ]]
 fi
 }
 
-# Directory compression.
-
 function backup ()
 {
+
+# Directory compression.
+
 if [[ -d $path ]]; then
     printf "Starting directory compression...\n"
     {
