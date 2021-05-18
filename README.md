@@ -12,6 +12,9 @@ A simple shell script for backup. It speeds up the backup process by compressing
 Use unzstd:
 ```unzstd name.tar.zst```
 
+**How to decrease compression level quickly:**
+```sed -i -e 's/-15//g' ebt```
+
 Acknowledgements: <br>
 drive: https://github.com/odeke-em/drive </br>
 zstd: https://github.com/facebook/zstd
