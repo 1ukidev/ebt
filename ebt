@@ -13,6 +13,8 @@ NC='\033[0m'
 
 # First content for ebt-log.
 
+function logBoot ()
+{
 if [ -s ebt-log ]
 then
     echo "-----------------------------" >> ebt-log
@@ -21,9 +23,12 @@ else
 fi
 
 date "+Date: %d-%m-%y Time: %H-%M-%S" >> ebt-log
+}
 
 # Checks whether dependencies are installed.
 
+function checkDependencies ()
+{
 if command -v tar > /dev/null; then
     printf "tar ok\n" >> ebt-log
 else
@@ -47,9 +52,11 @@ else
     printf "drive fail\n" >> ebt-log
     exit 1
 fi
+}
 
 # Welcome.
-
+function welcome ()
+{
 printf "Welcome to ${RED}ebt${NC}, easy backup tool!\n"
 printf "A simple shell script for backup. It speeds up the backup process by compressing your directory or file and uploading it to Google Drive using the drive tool.\n\n"
 printf "More information: https://github.com/1ukidev/ebt\n"
@@ -69,12 +76,12 @@ if [[ "$name" =~ ^[0-9a-zA-Z._-]+$ ]]
         printf "This name is invalid, please replace it with another.\n" >> ebt-log
         exit 1
 fi
-
-# Runtime.
-SECONDS=0
+}
 
 # Directory compression.
 
+function backup ()
+{
 if [[ -d $path ]]; then
     printf "Starting directory compression...\n"
     {
@@ -87,14 +94,14 @@ if [[ -d $path ]]; then
         printf "Fail :(\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n" >> ebt-log
         exit 1
     fi
-        printf "Uploading...\n" 
+        printf "Uploading...\n"
         {
         drive push -quiet $name.tar.zst
-        } &> /dev/null 
+        } &> /dev/null
     if [ $? -eq 0 ]; then
-    	rm -Rf $name.tar.zst
-    	printf "Deleted compressed directory.\n"
-    	printf "Deleted compressed directory.\n" >> ebt-log
+        rm -Rf $name.tar.zst
+        printf "Deleted compressed directory.\n"
+        printf "Deleted compressed directory.\n" >> ebt-log
         printf "All right, closing...\n"
         printf "All right, closing...\n" >> ebt-log
         printf "Finished in $SECONDS seconds.\n"
@@ -118,14 +125,14 @@ elif [[ -f $path ]]; then
         printf "Fail :(\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n" >> ebt-log
         exit 1
     fi
-        printf "Uploading...\n" 
+        printf "Uploading...\n"
         {
         drive push -quiet $name.tar.zst
         } &> /dev/null
     if [ $? -eq 0 ]; then
         rm -Rf $name.tar.zst
-    	printf "Deleted compressed file.\n"
-    	printf "Deleted compressed file.\n" >> ebt-log
+        printf "Deleted compressed file.\n"
+        printf "Deleted compressed file.\n" >> ebt-log
         printf "All right, closing...\n"
         printf "All right, closing...\n" >> ebt-log
         printf "Finished in $SECONDS seconds.\n"
@@ -134,9 +141,16 @@ elif [[ -f $path ]]; then
         printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n"
         printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n" >> ebt-log
     fi
-
 else
     printf "$path is not valid.\n"
     printf "$path is not valid.\n" >> ebt-log
     exit 1
 fi
+}
+
+logBoot
+checkDependencies
+welcome
+# Runtime.
+SECONDS=0
+backup
