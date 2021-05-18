@@ -32,7 +32,7 @@ function checkDependencies ()
 if command -v tar > /dev/null; then
     printf "tar ok\n" >> ebt-log
 else
-    printf "\ntar is not installed :(\n\n"
+    printf "\ntar is not installed 😟\n\n"
     printf "tar fail\n" >> ebt-log
     exit 1
 fi
@@ -40,7 +40,7 @@ fi
 if command -v zstd > /dev/null; then
     printf "zstd ok\n" >> ebt-log
 else
-    printf "\nzstd is not installed :(\n\n"
+    printf "\nzstd is not installed 😟\n\n"
     printf "zstd fail\n" >> ebt-log
     exit 1
 fi
@@ -48,13 +48,14 @@ fi
 if command -v drive > /dev/null; then
     printf "drive ok\n" >> ebt-log
 else
-    printf "\ndrive is not installed :(\n\n"
+    printf "\ndrive is not installed 😟\n\n"
     printf "drive fail\n" >> ebt-log
     exit 1
 fi
 }
 
 # Welcome.
+
 function welcome ()
 {
 printf "Welcome to ${RED}ebt${NC}, easy backup tool!\n"
@@ -91,8 +92,8 @@ if [[ -d $path ]]; then
     if [ $? -eq 0 ]; then
         printf "Done.\n"
     else
-        printf "Fail :(\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n"
-        printf "Fail :(\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n" >> ebt-log
+        printf "Fail 😟\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n"
+        printf "Fail 😟\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n" >> ebt-log
         exit 1
     fi
         printf "Uploading...\n"
@@ -108,8 +109,8 @@ if [[ -d $path ]]; then
         printf "Finished in $SECONDS seconds.\n"
         printf "Finished in $SECONDS seconds.\n" >> ebt-log
     else
-        printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n"
-        printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n" >> ebt-log
+        printf "Fail 😟\nSomething went wrong, check if everything is right with your drive tool.\n"
+        printf "Fail 😟\nSomething went wrong, check if everything is right with your drive tool.\n" >> ebt-log
     fi
 
 # File compression.
@@ -122,8 +123,8 @@ elif [[ -f $path ]]; then
     if [ $? -eq 0 ]; then
         printf "Done.\n"
     else
-        printf "Fail :(\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n"
-        printf "Fail :(\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n" >> ebt-log
+        printf "Fail 😟\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n"
+        printf "Fail 😟\nTry to update your system or create an issue at: https://github.com/1ukidev/ebt\n" >> ebt-log
         exit 1
     fi
         printf "Uploading...\n"
@@ -139,8 +140,8 @@ elif [[ -f $path ]]; then
         printf "Finished in $SECONDS seconds.\n"
         printf "Finished in $SECONDS seconds.\n" >> ebt-log
     else
-        printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n"
-        printf "Fail :(\nSomething went wrong, check if everything is right with your drive tool.\n" >> ebt-log
+        printf "Fail 😟\nSomething went wrong, check if everything is right with your drive tool.\n"
+        printf "Fail 😟\nSomething went wrong, check if everything is right with your drive tool.\n" >> ebt-log
     fi
 else
     printf "$path is not valid.\n"
