@@ -66,17 +66,9 @@ printf "${RED}WARNING: If you have never used drive tool, configure it before us
 printf "Enter path of the file or directory you want to backup:\n"
 printf "Example: /home/user/Music (for directory) or /home/user/Music/Jazz.mp3 (for file).\n"
 IFS= read -rp "❯❯ " path
-printf "Enter the name you want to put in the compressed file (a-z, A-Z, 0-9, ._-) (without file format) (tip: $(date "+%d-%m-%y")).\n"
+printf "Enter the name you want to put in the compressed file (tip: $(date "+%d-%m-%y")).\n"
 IFS= read -rp "❯❯ " name
-
-if [[ "$name" =~ ^[0-9a-zA-Z._-]+$ ]]
-    then
-        printf "Puted.\n"
-    else
-        printf "${RED}This name is invalid, please replace it with another.\n"
-        printf "This name is invalid, please replace it with another.\n" >> ebt-log
-        exit 1
-fi
+printf "Puted.\n"
 }
 
 function backup ()
@@ -87,7 +79,7 @@ function backup ()
 if [[ -d $path ]]; then
     printf "Starting directory compression...\n"
     {
-    tar -I 'zstd -15' -cf $name.tar.zst $path/
+    tar -I 'zstd -15' -cf "$name".tar.zst $path/
     } &> /dev/null
     if [ $? -eq 0 ]; then
         printf "Done.\n"
@@ -98,10 +90,10 @@ if [[ -d $path ]]; then
     fi
         printf "Uploading...\n"
         {
-        drive push -quiet $name.tar.zst
+        drive push -quiet "$name".tar.zst
         } &> /dev/null
     if [ $? -eq 0 ]; then
-        rm -Rf $name.tar.zst
+        rm -Rf "$name".tar.zst
         printf "Deleted compressed directory.\n"
         printf "Deleted compressed directory.\n" >> ebt-log
         printf "All right, closing...\n"
@@ -109,7 +101,7 @@ if [[ -d $path ]]; then
         printf "Finished in $SECONDS seconds.\n"
         printf "Finished in $SECONDS seconds.\n" >> ebt-log
     else
-        printf "${RED}Upload failed 😟\nSomething went wrong, check if everything is right with your drive tool.\n"
+        printf "${RED}Upload failed 😟\nCheck if everything is right with your drive tool.\n"
         printf "Upload failed, check if everything is right with your drive tool.\n" >> ebt-log
     fi
 
@@ -118,7 +110,7 @@ if [[ -d $path ]]; then
 elif [[ -f $path ]]; then
     printf "Starting file compression...\n"
     {
-    tar -I 'zstd -15' -cf $name.tar.zst $path/
+    tar -I 'zstd -15' -cf "$name".tar.zst $path/
     } &> /dev/null
     if [ $? -eq 0 ]; then
         printf "Done.\n"
@@ -129,10 +121,10 @@ elif [[ -f $path ]]; then
     fi
         printf "Uploading...\n"
         {
-        drive push -quiet $name.tar.zst
+        drive push -quiet "$name".tar.zst
         } &> /dev/null
     if [ $? -eq 0 ]; then
-        rm -Rf $name.tar.zst
+        rm -Rf "$name".tar.zst
         printf "Deleted compressed file.\n"
         printf "Deleted compressed file.\n" >> ebt-log
         printf "All right, closing...\n"
@@ -140,7 +132,7 @@ elif [[ -f $path ]]; then
         printf "Finished in $SECONDS seconds.\n"
         printf "Finished in $SECONDS seconds.\n" >> ebt-log
     else
-        printf "${RED}Upload failed 😟\nSomething went wrong, check if everything is right with your drive tool.\n"
+        printf "${RED}Upload failed 😟\nCheck if everything is right with your drive tool.\n"
         printf "Upload failed, check if everything is right with your drive tool.\n" >> ebt-log
     fi
 else
