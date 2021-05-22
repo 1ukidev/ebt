@@ -68,7 +68,6 @@ printf "Example: /home/user/Music (for directory) or /home/user/Music/Jazz.mp3 (
 IFS= read -rp "❯❯ " path
 printf "Enter the name you want to put in the compressed file (tip: $(date "+%d-%m-%y")).\n"
 IFS= read -rp "❯❯ " name
-printf "Puted.\n"
 }
 
 function backup()
@@ -79,7 +78,7 @@ function backup()
 if [[ -d $path ]]; then
     printf "Starting directory compression...\n"
     {
-    tar -I 'zstd -15' -cf "$name".tar.zst $path/
+      tar -I 'zstd -15 -T$(nproc)' -cf "$name".tar.zst $path/
     } &> /dev/null
     if [ $? -eq 0 ]; then
         printf "Done.\n"
@@ -110,7 +109,7 @@ if [[ -d $path ]]; then
 elif [[ -f $path ]]; then
     printf "Starting file compression...\n"
     {
-    tar -I 'zstd -15' -cf "$name".tar.zst $path/
+      tar -I 'zstd -15 -T$(nproc)' -cf "$name".tar.zst $path/
     } &> /dev/null
     if [ $? -eq 0 ]; then
         printf "Done.\n"
