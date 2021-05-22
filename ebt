@@ -88,9 +88,7 @@ if [[ -d $path ]]; then
         exit 1
     fi
         printf "Uploading...\n"
-        {
         drive push -quiet "$name".tar.zst
-        } &> /dev/null
     if [ $? -eq 0 ]; then
         rm -Rf "$name".tar.zst
         printf "Deleted compressed directory.\n"
@@ -119,9 +117,7 @@ elif [[ -f $path ]]; then
         exit 1
     fi
         printf "Uploading...\n"
-        {
         drive push -quiet "$name".tar.zst
-        } &> /dev/null
     if [ $? -eq 0 ]; then
         rm -Rf "$name".tar.zst
         printf "Deleted compressed file.\n"
