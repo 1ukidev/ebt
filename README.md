@@ -10,8 +10,8 @@ A simple shell script for backup. It speeds up the backup process by compressing
 - drive
 
 **How to unzip?** </br>
-Use unzstd: </br>
-```unzstd name.tar.zst```
+```unzstd name.tar.zst``` </br>
+```tar -xvf name.tar``` 
 
 **How to decrease compression level quickly:** </br>
 ```sed -i -e 's/-15//g' ebt```
