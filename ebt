@@ -59,7 +59,7 @@ fi
 function welcome()
 {
 printf "Welcome to ${RED}ebt${NC}, easy backup tool!\n"
-printf "A simple shell script for backup. It speeds up the backup process by compressing your directory or file and uploading it to Google Drive using the drive tool.\n\n"
+printf "A simple shell script for backup. Speeds up backup process by compressing your directory or file and uploading it to Google Drive using "drive".\n\n"
 printf "More information: https://github.com/1ukidev/ebt\n"
 printf "drive: https://github.com/odeke-em/drive\n\n"
 printf "${RED}WARNING: If you have never used drive tool, configure it before use to avoid errors.${NC}\n"
