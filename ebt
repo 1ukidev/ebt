@@ -7,12 +7,10 @@
 clear
 
 # Color variables.
-
 RED='\033[0;31m'
 NC='\033[0m'
 
 # First content for ebt-log.
-
 function logBoot()
 {
 if [ -s ebt-log ]
@@ -26,7 +24,6 @@ date "+Date: %d-%m-%y Time: %H-%M-%S" >> ebt-log
 }
 
 # Checks whether dependencies are installed.
-
 function checkDependencies()
 {
 if command -v tar > /dev/null; then
@@ -55,7 +52,6 @@ fi
 }
 
 # Welcome.
-
 function welcome()
 {
 printf "Welcome to ${RED}ebt${NC}, easy backup tool!\n"
@@ -74,7 +70,6 @@ function backup()
 {
 
 # Directory compression.
-
 if [[ -d $path ]]; then
     printf "Starting directory compression...\n"
     {
@@ -90,7 +85,7 @@ if [[ -d $path ]]; then
         printf "Uploading...\n"
         drive push -quiet "$name".tar.zst
     if [ $? -eq 0 ]; then
-        rm -Rf "$name".tar.zst
+        rm -rf "$name".tar.zst
         printf "Deleted compressed directory.\n"
         printf "Deleted compressed directory.\n" >> ebt-log
         printf "All right, closing...\n"
@@ -103,7 +98,6 @@ if [[ -d $path ]]; then
     fi
 
 # File compression.
-
 elif [[ -f $path ]]; then
     printf "Starting file compression...\n"
     {
@@ -119,7 +113,7 @@ elif [[ -f $path ]]; then
         printf "Uploading...\n"
         drive push -quiet "$name".tar.zst
     if [ $? -eq 0 ]; then
-        rm -Rf "$name".tar.zst
+        rm -rf "$name".tar.zst
         printf "Deleted compressed file.\n"
         printf "Deleted compressed file.\n" >> ebt-log
         printf "All right, closing...\n"
