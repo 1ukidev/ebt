@@ -11,7 +11,7 @@ A simple shell script for backup. Speeds up backup process by compressing your d
 
 **How to unzip?** </br>
 ```unzstd name.tar.zst``` </br>
-```tar -xvf name.tar``` 
+```tar xf name.tar``` 
 
 **How to decrease compression level quickly:** </br>
 ```sed -i -e 's/-15//g' ebt```
