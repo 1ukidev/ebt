@@ -17,5 +17,5 @@ A simple shell script for backup. Speeds up backup process by compressing your d
 ```sed -i -e 's/-15//g' ebt```
 
 Acknowledgements: <br>
-drive: https://github.com/odeke-em/drive </br>
-zstd: https://github.com/facebook/zstd
+drive - https://github.com/odeke-em/drive </br>
+zstd - https://github.com/facebook/zstd
