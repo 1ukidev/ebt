@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # ebt - easy backup tool
 # made by 1ukidev
@@ -10,8 +10,8 @@ clear
 RED='\033[0;31m'
 NC='\033[0m'
 
-# First content for ebt-log.
-function logBoot()
+# Add first info to ebt-log.
+function log()
 {
 if [ -s ebt-log ]
 then
@@ -19,7 +19,6 @@ then
 else
     printf "" >> ebt-log
 fi
-
 date "+Date: %d-%m-%y Time: %H-%M-%S" >> ebt-log
 }
 
@@ -68,7 +67,6 @@ IFS= read -rp "❯❯ " name
 
 function backup()
 {
-
 # Directory compression.
 if [[ -d $path ]]; then
     printf "Starting directory compression...\n"
@@ -96,7 +94,6 @@ if [[ -d $path ]]; then
         printf "${RED}Upload failed 😟\nCheck if everything is right with your drive tool.\n"
         printf "Upload failed, check if everything is right with your drive tool.\n" >> ebt-log
     fi
-
 # File compression.
 elif [[ -f $path ]]; then
     printf "Starting file compression...\n"
@@ -131,7 +128,7 @@ else
 fi
 }
 
-logBoot
+log
 checkDependencies
 welcome
 # Runtime.
