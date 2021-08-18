@@ -1,9 +1,6 @@
 # ebt - easy backup tool
 A simple shell script for backup. Speeds up backup process by compressing your directory or file and uploading to Google Drive.</br>
 
-**Warning:**
-- For now, only zstd can be used.
-
 **Dependencies:**
 - tar
 - zstd
