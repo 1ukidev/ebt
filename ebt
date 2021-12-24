@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 # ebt - easy backup tool
 # made by 1ukidev
