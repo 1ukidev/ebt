@@ -7,8 +7,8 @@ A simple shell script for backup. Speeds up backup process by compressing your d
 - drive (https://github.com/odeke-em/drive)
 
 **How to unzip?**</br>
-```unzstd name.tar.zst```</br>
-```tar xf name.tar``` 
+```unzstd <name>.tar.zst```</br>
+```tar xf <name>.tar``` 
 
 **How to decrease compression level quickly:**</br>
-```sed -i -e 's/-15//g' ebt```
+```sed -i 's/-15//g' ebt```
